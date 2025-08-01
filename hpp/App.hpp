@@ -6,7 +6,7 @@ class App
 {
 private:
 public:
-    App();
+    App(char *files[]);
 };
 
 #endif

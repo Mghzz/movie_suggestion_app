@@ -5,7 +5,7 @@ SRC_DIR = cpp
 INC_DIR = hpp
 OBJ_DIR = build
 
-TARGET = MK.exe
+TARGET = ChiBebinam
 
 SRCS = $(wildcard $(SRC_DIR)/*.cpp)
 OBJS = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRCS))
