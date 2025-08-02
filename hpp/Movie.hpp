@@ -19,6 +19,7 @@ public:
     string get_name();
     string get_director();
     string get_cast();
+    string get_genre();
     int get_imdb();
     void print_info();
     int get_public_score();

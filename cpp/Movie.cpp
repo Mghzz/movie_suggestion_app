@@ -55,3 +55,8 @@ string Movie::get_cast()
 {
     return cast;
 }
+
+string Movie::get_genre()
+{
+    return genre;
+}

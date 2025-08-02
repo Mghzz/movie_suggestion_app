@@ -32,6 +32,8 @@ public:
     vector<shared_ptr<Movie>> genre_rec_private(string genre, string username);
     shared_ptr<User> find_user(string name);
     vector<shared_ptr<Movie>> cast_rec_public(string cast);
+    vector<shared_ptr<Movie>> cast_rec_private(string cast, string username);
+    vector<shared_ptr<Movie>> find_private_favorites_for_cast(vector<shared_ptr<Movie>> movies, shared_ptr<User> user, string cast);
 
     void input_test();
 };

@@ -4,11 +4,31 @@ User::User(string _name, vector<pair<shared_ptr<Movie>, string>> _movies)
 {
     name = _name;
     movies = _movies;
+
+    vector<int> genre_repeats(5, 0);
+
+    for (int i = 0; i < movies.size(); i++)
+    {
+        int genre_num = genres[movies[i].first->get_genre()];
+        genre_repeats[genre_num]++;
+    }
+
+    favorite_genre = 0;
+    for (int i = 1; i < genre_repeats.size(); i++)
+    {
+        if (genre_repeats[i] > genre_repeats[favorite_genre])
+            favorite_genre = i;
+    }
 }
 
 string User::get_name()
 {
     return name;
+}
+
+int User::get_favorite_genre()
+{
+    return favorite_genre;
 }
 
 vector<pair<shared_ptr<Movie>, string>> &User::get_movies()

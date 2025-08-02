@@ -52,7 +52,7 @@ void IOHandler::handle_commands()
             }
             else if (args.size() == 3)
             {
-                // movies = app->cast_rec_private(args[0], args[1]);
+                movies = app->cast_rec_private(args[1], args[0]);
             }
             print_movies(movies);
         }
