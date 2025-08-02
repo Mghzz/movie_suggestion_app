@@ -27,3 +27,17 @@ void Movie::print_info()
               << "Genre: " << genre << "\n"
               << "IMDb: " << imdb << "\n";
 }
+
+int Movie::get_public_score()
+{
+    return public_score;
+}
+void Movie::set_public_score(int _public_score)
+{
+    public_score = _public_score;
+}
+
+string Movie::get_director()
+{
+    return director;
+}

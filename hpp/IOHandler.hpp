@@ -9,8 +9,9 @@ private:
     App *app;
 
 public:
-    IOHandler(App *app);
+    IOHandler(App *_app);
     void handle_commands();
+    void print_movies(vector<shared_ptr<Movie>> movies);
 };
 
 #endif

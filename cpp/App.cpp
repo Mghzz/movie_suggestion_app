@@ -18,18 +18,8 @@ App ::App(char *files[])
     sort(comedy_movies.begin(), comedy_movies.end(), movie_comparetor);
     sort(drama_movies.begin(), drama_movies.end(), movie_comparetor);
     sort(horror_movies.begin(), horror_movies.end(), movie_comparetor);
-}
 
-vector<string> split_string(const string &str, char delimiter)
-{
-    vector<string> tokens;
-    string token;
-    istringstream sstr(str);
-    while (getline(sstr, token, delimiter))
-    {
-        tokens.push_back(move(token));
-    }
-    return tokens;
+    find_public_favorites();
 }
 
 shared_ptr<Movie> App::find_movie(string name)
@@ -84,13 +74,6 @@ void App::read_movies_file(char *file_address)
     string temp_text;
     vector<string> tokens;
     int counter = 0;
-
-    unordered_map<string, int> genres = {
-        {SCIENCE_FICTION, 0},
-        {ACTION, 1},
-        {COMEDY, 2},
-        {DRAMA, 3},
-        {HORROR, 4}};
 
     while (getline(file, temp_text))
     {
@@ -179,5 +162,134 @@ void App::input_test()
             p.first->print_info();
             cout << "\n";
         }
+    }
+}
+
+void App::find_public_favorites()
+{
+    sci_fi_public_favorites = find_public_favorites_for_genre(sci_fi_movies);
+    action_public_favorites = find_public_favorites_for_genre(action_movies);
+    comedy_public_favorites = find_public_favorites_for_genre(comedy_movies);
+    drama_public_favorites = find_public_favorites_for_genre(drama_movies);
+    horror_public_favorites = find_public_favorites_for_genre(horror_movies);
+}
+
+vector<shared_ptr<Movie>> App::find_public_favorites_for_genre(vector<shared_ptr<Movie>> movies)
+{
+    vector<int> scores;
+    int P;
+    int A;
+    int Z;
+    int score;
+    for (int i = 0; i < movies.size(); i++)
+    {
+        P = 0;
+        A = 0;
+        Z = 0;
+        for (int j = 0; j < users.size(); j++)
+        {
+            auto user_movies = users[j]->get_movies();
+            for (int k = 0; k < user_movies.size(); k++)
+            {
+                if (user_movies[k].first->get_name() == movies[i]->get_name())
+                {
+                    if (user_movies[k].second == PERFECT)
+                    {
+                        P++;
+                    }
+                    else if (user_movies[k].second == AVERAGE)
+                    {
+                        A++;
+                    }
+                    else if (user_movies[k].second == POOR)
+                    {
+                        Z++;
+                    }
+                }
+            }
+        }
+        score = (7 * P) + (5 * A) + ((-2) * Z);
+        movies[i]->set_public_score(score);
+    }
+    sort(movies.begin(), movies.end(),
+         [](const shared_ptr<Movie> &a, const shared_ptr<Movie> &b)
+         {
+             return a->get_public_score() > b->get_public_score();
+         });
+
+    vector<shared_ptr<Movie>> output;
+    output.push_back(movies[0]);
+    output.push_back(movies[1]);
+    output.push_back(movies[2]);
+
+    return output;
+}
+
+vector<shared_ptr<Movie>> App::genre_rec_public(string genre)
+{
+    int genre_num = genres[genre];
+    switch (genre_num)
+    {
+    case 0:
+        return sci_fi_public_favorites;
+        break;
+    case 1:
+        return action_public_favorites;
+        break;
+    case 2:
+        return comedy_public_favorites;
+        break;
+    case 3:
+        return drama_public_favorites;
+        break;
+    case 4:
+        return horror_public_favorites;
+        break;
+    }
+}
+
+vector<shared_ptr<Movie>> App::find_private_favorites_for_genre(vector<shared_ptr<Movie>> movies, shared_ptr<User> user)
+{
+    vector<int> scores;
+    int director_effect;
+    int cast_effect;
+    int score;
+    for (int i = 0; i < movies.size(); i++)
+    {
+        }
+    sort(movies.begin(), movies.end(),
+         [](const shared_ptr<Movie> &a, const shared_ptr<Movie> &b)
+         {
+             return a->get_public_score() > b->get_public_score();
+         });
+
+    vector<shared_ptr<Movie>> output;
+    output.push_back(movies[0]);
+    output.push_back(movies[1]);
+    output.push_back(movies[2]);
+
+    return output;
+}
+
+vector<shared_ptr<Movie>> App::genre_rec_private(string genre)
+{
+    int genre_num = genres[genre];
+    switch (genre_num)
+    {
+    case 0:
+        return sci_fi_public_favorites;
+        break;
+    case 1:
+        return action_public_favorites;
+        break;
+    case 2:
+        return comedy_public_favorites;
+        break;
+    case 3:
+        return drama_public_favorites;
+        break;
+    case 4:
+        return horror_public_favorites;
+        break;
     }
 }

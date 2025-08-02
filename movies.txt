@@ -1,6 +1,8 @@
 Name,Director,Cast,Genre,IMDb
 La La Land,Damien Chazelle,Ryan Gosling,Drama,8
 Interstellar,Christopher Nolan,Matthew McConaughey,Science Fiction,9
+Interstellar2,Christopher Nolan,Matthew McConaughey,Science Fiction,5
+Interstellar3,Christopher Nolan,Matthew McConaughey,Science Fiction,4
 Twilight,Catherine Hardwicke,Kristen Stewart,Horror,5
 Inception,Christopher Nolan,Leonardo DiCaprio,Action,9
 Parasite,Bong Joon ho,Song Kang ho,Drama,9
@@ -13,3 +15,4 @@ The Mask,Chuck Russell,Jim Carrey,Comedy,7
 Endgame,Joe Russo,Scarlett Johansson,Action,8
 Lucy,Luc Besson,Scarlett Johansson,Action,6
 The Conjuring,James Wan,Vera Farmiga,Horror,7
+The Conjuring2,James Wan,Vera Farmiga,Horror,4
