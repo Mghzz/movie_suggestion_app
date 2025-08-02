@@ -25,6 +25,7 @@ const string POOR = "Poor";
 const char COMMA = ',';
 const char SEMICOLON = ';';
 const char SPACE = ' ';
+const int BIG_MINUS = -1000;
 
 extern unordered_map<string, int> genres;
 

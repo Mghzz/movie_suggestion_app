@@ -37,7 +37,21 @@ void Movie::set_public_score(int _public_score)
     public_score = _public_score;
 }
 
+int Movie::get_private_score()
+{
+    return private_score;
+}
+void Movie::set_private_score(int _private_score)
+{
+    private_score = _private_score;
+}
+
 string Movie::get_director()
 {
     return director;
+}
+
+string Movie::get_cast()
+{
+    return cast;
 }

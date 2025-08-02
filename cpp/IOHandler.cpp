@@ -40,7 +40,7 @@ void IOHandler::handle_commands()
             }
             else if (args.size() == 3)
             {
-                // movies = app->genre_rec_private(args[0], args[1]);
+                movies = app->genre_rec_private(args[1], args[0]);
             }
             print_movies(movies);
         }
@@ -48,7 +48,7 @@ void IOHandler::handle_commands()
         {
             if (args.size() == 2)
             {
-                // movies = app->cast_rec_public(args[0]);
+                movies = app->cast_rec_public(args[0]);
             }
             else if (args.size() == 3)
             {
@@ -71,5 +71,9 @@ void IOHandler::print_movies(vector<shared_ptr<Movie>> movies)
         {
             cout << to_string(i + 1) + ". " + movies[i]->get_name() + ": " + movies[i]->get_director() + " (" + to_string(movies[i]->get_imdb()) + ")" << endl;
         }
+    }
+    else
+    {
+        cout << "No suitable movies were found." << endl;
     }
 }
