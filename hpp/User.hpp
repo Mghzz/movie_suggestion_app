@@ -12,7 +12,8 @@ private:
 public:
     User();
     User(string _name, vector<pair<shared_ptr<Movie>, string>> _movies);
-    ~User();
+    string get_name();
+    vector<pair<shared_ptr<Movie>, string>> &get_movies();
 };
 
 #endif

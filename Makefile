@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -Wall -g -std=c++20 -Ihpp
+CXXFLAGS = -Wall -g -std=c++20 -I$(INC_DIR)
 
 SRC_DIR = cpp
 INC_DIR = hpp
@@ -11,17 +11,15 @@ SRCS = $(wildcard $(SRC_DIR)/*.cpp)
 OBJS = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRCS))
 
 all: $(TARGET)
-
 $(TARGET): $(OBJS)
-	@if not exist "$(OBJ_DIR)" mkdir "$(OBJ_DIR)"
+	@mkdir -p $(OBJ_DIR)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(wildcard $(INC_DIR)/*.hpp)
-	@if not exist "$(OBJ_DIR)" mkdir "$(OBJ_DIR)"
+	@mkdir -p $(OBJ_DIR)
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 clean:
-	@if exist "$(OBJ_DIR)" rmdir /s /q "$(OBJ_DIR)"
-	@if exist "$(TARGET)" del "$(TARGET)"
+	rm -rf $(OBJ_DIR) $(TARGET)
 
 .PHONY: all clean

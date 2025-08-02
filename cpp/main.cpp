@@ -5,6 +5,7 @@
 int main(int argc, char *argv[])
 {
     App *ChiBebinam = new App(argv);
+    // ChiBebinam->input_test();
     IOHandler handler(ChiBebinam);
     handler.handle_commands();
 }

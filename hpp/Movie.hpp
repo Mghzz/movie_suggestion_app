@@ -14,7 +14,9 @@ private:
 public:
     Movie();
     Movie(string _name, string _director, string _cast, string _genre, int _imdb);
-    ~Movie();
+    string get_name();
+    int get_imdb();
+    void print_info();
 };
 
 #endif

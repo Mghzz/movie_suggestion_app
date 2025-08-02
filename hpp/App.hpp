@@ -17,6 +17,10 @@ private:
 
 public:
     App(char *files[]);
+    void read_movies_file(char *file_address);
+    void read_users_file(char *file_address);
+    shared_ptr<Movie> find_movie(string name);
+    void input_test();
 };
 
 #endif
