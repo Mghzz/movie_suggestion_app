@@ -67,7 +67,7 @@ void IOHandler::print_movies(vector<shared_ptr<Movie>> movies)
 {
     if (movies.size() > 0)
     {
-        for (int i = 0; i < movies.size(); i++)
+        for (int i = 0; i < min(movies.size(), (size_t)3); i++)
         {
             cout << to_string(i + 1) + ". " + movies[i]->get_name() + ": " + movies[i]->get_director() + " (" + to_string(movies[i]->get_imdb()) + ")" << endl;
         }

@@ -25,7 +25,8 @@ void Movie::print_info()
               << "Director: " << director << "\n"
               << "Cast: " << cast << "\n"
               << "Genre: " << genre << "\n"
-              << "IMDb: " << imdb << "\n";
+              << "IMDb: " << imdb << "\n"
+              << "score: " << private_score << "\n";
 }
 
 int Movie::get_public_score()

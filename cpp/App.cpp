@@ -211,11 +211,15 @@ vector<shared_ptr<Movie>> App::find_public_favorites_for_genre(vector<shared_ptr
         score = (7 * P) + (5 * A) + ((-2) * Z);
         movies[i]->set_public_score(score);
     }
-    sort(movies.begin(), movies.end(),
-         [](const shared_ptr<Movie> &a, const shared_ptr<Movie> &b)
-         {
-             return a->get_public_score() > b->get_public_score();
-         });
+    stable_sort(movies.begin(), movies.end(),
+                [](auto &a, auto &b)
+                {
+                    if (a->get_public_score() != b->get_public_score())
+                        return a->get_public_score() > b->get_public_score();
+                    if (a->get_imdb() != b->get_imdb())
+                        return a->get_imdb() > b->get_imdb();
+                    return a->get_name() < b->get_name();
+                });
 
     vector<shared_ptr<Movie>> output;
     output.push_back(movies[0]);
@@ -258,7 +262,7 @@ vector<shared_ptr<Movie>> App::find_private_favorites_for_genre(vector<shared_pt
     {
         director_effect = user->find_movie_by_director(movies[i]->get_director());
         cast_effect = user->find_movie_by_cast(movies[i]->get_cast());
-        score = movies[i]->get_imdb() * 7 + director_effect * 5 + cast_effect * 6;
+        score = (movies[i]->get_imdb() * 7) + (director_effect * 5) + (cast_effect * 6);
         if (user->seen_movie(movies[i]))
         {
             score = BIG_MINUS;
@@ -266,9 +270,13 @@ vector<shared_ptr<Movie>> App::find_private_favorites_for_genre(vector<shared_pt
         movies[i]->set_private_score(score);
     }
     sort(movies.begin(), movies.end(),
-         [](const shared_ptr<Movie> &a, const shared_ptr<Movie> &b)
+         [](auto &a, auto &b)
          {
-             return a->get_private_score() > b->get_private_score();
+             if (a->get_private_score() != b->get_private_score())
+                 return a->get_private_score() > b->get_private_score();
+             if (a->get_imdb() != b->get_imdb())
+                 return a->get_imdb() > b->get_imdb();
+             return a->get_name() < b->get_name();
          });
 
     vector<shared_ptr<Movie>> output;
@@ -320,7 +328,7 @@ vector<shared_ptr<Movie>> App::cast_rec_public(string cast)
     int counter = 0;
     for (int i = 0; i < movies.size(); i++)
     {
-        if (movies[i]->get_cast() == cast && counter < 3)
+        if (movies[i]->get_cast() == cast && counter < 2)
         {
             output.push_back(movies[i]);
             counter++;
@@ -343,6 +351,7 @@ vector<shared_ptr<Movie>> App::find_private_favorites_for_cast(vector<shared_ptr
         if (movies[i]->get_cast() == cast && counter < 2)
         {
             output.push_back(movies[i]);
+            counter++;
         }
     }
     return output;
